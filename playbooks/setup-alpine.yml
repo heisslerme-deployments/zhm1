@@ -1,0 +1,16 @@
+- name: Setup alpine distro.
+  hosts: k3s_cluster
+  tasks:
+    - name: Test connection with normal user.
+      connection: local
+      ansible.builtin.command:
+        cmd: "ssh -a @{{ inventory_hostname }} \
+          -l {{ hostvars[inventory_hostname][ssh][user] }} \
+          -i {{ hostvars[inventory_hostname][ssh][keyfile] }}
+          -o IdentitysOnly=yes
+          "
+      changed_when: false
+      register: normal_user_success
+
+    - name: Test credentials for elevated user.
+      

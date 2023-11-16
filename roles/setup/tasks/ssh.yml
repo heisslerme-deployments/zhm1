@@ -1,0 +1,3 @@
+- name: Check connection using normal user.
+  connection: local
+  
